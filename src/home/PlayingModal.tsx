@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
 import config from '../config';
+import Spinner from '../common/Spinner';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 
 type PlayingModalProps = {
   showing: boolean,
@@ -35,8 +41,9 @@ class PlayingModal extends Component<PlayingModalProps, PlayingModalState> {
   constructor(props: PlayingModalProps) {
     super(props);
     this.state = PlayingModal.getEmptyState();
-    this.loadQuestion = this.loadQuestion.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.loadQuestion = this.loadQuestion.bind(this);
+    this.voteForCompany = this.voteForCompany.bind(this);
   }
 
   handleClose(): void {
@@ -46,7 +53,6 @@ class PlayingModal extends Component<PlayingModalProps, PlayingModalState> {
 
   render () {
     const {showing} = this.props;
-    const {question, companies: [company1, company2]} = this.state;
     return (
       <Modal
         centered
@@ -57,12 +63,49 @@ class PlayingModal extends Component<PlayingModalProps, PlayingModalState> {
         aria-labelledby="example-modal-sizes-title-lg"
       >
         <Modal.Body>
-          <h1>{question && question.text}</h1>
-          <p>{company1 && company1.name}</p>
-          <p>{company2 && company2.name}</p>
+          {this.defineContent()}
         </Modal.Body>
       </Modal>
     );
+  }
+
+  defineContent() {
+    const {question, companies: [company1, company2]} = this.state;
+
+    if (question && company1 && company2) {
+      return this.renderBody(question, company1, company2);
+    }
+
+    return <Spinner />
+  }
+
+  renderBody (question: Question, company1: Company, company2: Company) {
+    return (
+      <Container>
+        <Row>
+          <Col>
+            <h3>{question.text}</h3>
+          </Col>
+        </Row>
+        <Row>
+          {this.renderCompany(company1)}
+          {this.renderCompany(company2)}
+        </Row>
+      </Container>
+    )
+  }
+
+  renderCompany (company: Company) {
+    return (
+      <Col>
+        <Card>
+          <Card.Img variant="top" src={`${config.image_endpoint}/${company.logo}`} />
+          <Button variant="primary" onClick={() => this.voteForCompany(company.id)}>
+            {company.name}
+          </Button>
+        </Card>
+      </Col>
+    )
   }
 
   async loadQuestion(): Promise<void> {
@@ -73,6 +116,17 @@ class PlayingModal extends Component<PlayingModalProps, PlayingModalState> {
         companies: companiesResponse.data,
         question: questionResponse.data
       });
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async voteForCompany(winner_id: number): Promise<void> {
+    try {
+      const loser_id: number = this.state.companies.find((c: Company): boolean => c.id !== winner_id)!.id;
+      const question_id: number = this.state.question!.id;
+      const response = await axios.post(`${config.api_endpoint}/vote`, {winner_id, loser_id, question_id});
+      console.log(response);
     } catch (e) {
       console.error(e);
     }
