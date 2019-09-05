@@ -1,5 +1,6 @@
 import React from 'react';
 import MDSpinner from 'react-md-spinner';
+import './Spinner.scss';
 
 type Options = {
   size: number,
