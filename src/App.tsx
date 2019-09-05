@@ -7,15 +7,37 @@ import HomePanel from './home/HomePanel';
 
 type AppProps = {};
 
-type AppState = {
-  hash: string
+export type Company = {
+  name: string
 };
+
+export type Score = {
+  id: number,
+  score: number,
+  company: Company
+}
+
+export type Question = {
+  id: number,
+  text: string
+  scores: Score[]
+};
+
+type AppState = {
+  hash: string,
+  questions: Question[]
+};
+
+export type UpdateState = {
+  questions: Question[]
+}
 
 class App extends Component<AppProps, AppState> {
   constructor(props: AppProps) {
     super(props);
     this.state = {
-      hash: document.location.hash
+      hash: document.location.hash,
+      questions: []
     };
   }
 
@@ -41,8 +63,8 @@ class App extends Component<AppProps, AppState> {
   defineContent() {
     const {hash} = this.state;
 
-    if (hash === '#ladderit') {
-      return <LadderitPanel/>;
+    if (hash.includes('#ladderit')) {
+      return <LadderitPanel questions={this.state.questions} updateState={(state: UpdateState) => this.setState(state)}/>;
     } else if (hash === '#faq') {
       return <FaqPanel/>;
     }
