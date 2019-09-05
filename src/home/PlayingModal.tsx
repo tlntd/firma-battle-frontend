@@ -8,7 +8,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-import { bounce } from 'react-animations';
+import { fadeOutUp, fadeOutDown } from 'react-animations';
 import {css, StyleSheet} from 'aphrodite';
 import './PlayingModal.scss';
 
@@ -62,8 +62,8 @@ class PlayingModal extends Component<PlayingModalProps, PlayingModalState> {
   }
 
   handleClose(): void {
-    this.setState(PlayingModal.getEmptyState());
     this.props.onClose();
+    this.setState(PlayingModal.getEmptyState());
   }
 
   render () {
@@ -111,19 +111,10 @@ class PlayingModal extends Component<PlayingModalProps, PlayingModalState> {
   }
 
   renderCompany (company: Company) {
-    const styles = StyleSheet.create({
-      bounce: {
-        animationName: bounce,
-        animationDuration: '2s'
-      }
-    });
-    const {results} = this.state;
     return (
       <Col>
         <Card>
-          <div className={results && css(styles.bounce)}>
-            <Card.Img variant="top" src={`${config.image_endpoint}/${company.logo}`} />
-          </div>
+          <Card.Img variant="top" src={`${config.image_endpoint}/${company.logo}`} />
           {this.renderButton(company)}
         </Card>
       </Col>
@@ -132,11 +123,35 @@ class PlayingModal extends Component<PlayingModalProps, PlayingModalState> {
 
   renderButton (company: Company) {
     const {voteLoading, results} = this.state;
+    const styles = StyleSheet.create({
+      up: {
+        animationName: fadeOutUp,
+        animationDuration: '2.5s'
+      },
+      down: {
+        animationName: fadeOutDown,
+        animationDuration: '2.5s'
+      }
+    });
 
     if (voteLoading && company.winner) {
-      return <div className="card-button-spacer"><Spinner /></div>;
-    } else if (voteLoading || results) {
-      return <div className="card-button-spacer" />;
+      return <Spinner />;
+    }
+
+    if (results && company.winner) {
+      return (
+        <h4 className={`score-up ${css(styles.up)}`}>
+          +{results.winnerDelta} pistettä
+        </h4>
+      );
+    }
+
+    if (results) {
+      return (
+        <h4 className={`score-down ${css(styles.down)}`}>
+          {results.loserDelta} pistettä
+        </h4>
+      );
     }
 
     return (
@@ -169,8 +184,12 @@ class PlayingModal extends Component<PlayingModalProps, PlayingModalState> {
         const loserId: number = this.state.companies.find((c: Company): boolean => c.id !== winnerId)!.id;
         const questionId: number = this.state.question!.id;
         const response = await axios.post(`${config.api_endpoint}/vote`, {winnerId, loserId, questionId});
-        this.setState({
-          results: response.data,
+        this.setState({results: response.data}, () => {
+          setTimeout(() => {
+            this.setState(PlayingModal.getEmptyState(), () => {
+              this.loadQuestion();
+            });
+          }, 2000);
         });
       });
     } catch (e) {
