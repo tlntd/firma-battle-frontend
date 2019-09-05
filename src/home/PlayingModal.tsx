@@ -8,6 +8,9 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import { bounce } from 'react-animations';
+import {css, StyleSheet} from 'aphrodite';
+import './PlayingModal.scss';
 
 type PlayingModalProps = {
   showing: boolean,
@@ -22,19 +25,31 @@ type Question = {
 type Company = {
   id: number,
   name: string,
-  logo: string
+  logo: string,
+  winner: boolean | undefined
+};
+
+type Results = {
+  winnerScore: number,
+  winnerDelta: number,
+  loserScore: number,
+  loserDelta: number
 };
 
 type PlayingModalState = {
   question: Question | undefined,
-  companies: Array<Company>
+  companies: Array<Company>,
+  results: Results | undefined,
+  voteLoading: boolean
 };
 
 class PlayingModal extends Component<PlayingModalProps, PlayingModalState> {
   static getEmptyState () {
     return {
       question: undefined,
-      companies: []
+      companies: [],
+      results: undefined,
+      voteLoading: false
     };
   }
 
@@ -96,16 +111,39 @@ class PlayingModal extends Component<PlayingModalProps, PlayingModalState> {
   }
 
   renderCompany (company: Company) {
+    const styles = StyleSheet.create({
+      bounce: {
+        animationName: bounce,
+        animationDuration: '2s'
+      }
+    });
+    const {results} = this.state;
     return (
       <Col>
         <Card>
-          <Card.Img variant="top" src={`${config.image_endpoint}/${company.logo}`} />
-          <Button variant="primary" onClick={() => this.voteForCompany(company.id)}>
-            {company.name}
-          </Button>
+          <div className={results && css(styles.bounce)}>
+            <Card.Img variant="top" src={`${config.image_endpoint}/${company.logo}`} />
+          </div>
+          {this.renderButton(company)}
         </Card>
       </Col>
     )
+  }
+
+  renderButton (company: Company) {
+    const {voteLoading, results} = this.state;
+
+    if (voteLoading && company.winner) {
+      return <div className="card-button-spacer"><Spinner /></div>;
+    } else if (voteLoading || results) {
+      return <div className="card-button-spacer" />;
+    }
+
+    return (
+      <Button variant="primary" onClick={() => this.voteForCompany(company.id)}>
+        {company.name}
+      </Button>
+    );
   }
 
   async loadQuestion(): Promise<void> {
@@ -121,12 +159,20 @@ class PlayingModal extends Component<PlayingModalProps, PlayingModalState> {
     }
   }
 
-  async voteForCompany(winnerId: number): Promise<void> {
+  voteForCompany(winnerId: number): void {
     try {
-      const loserId: number = this.state.companies.find((c: Company): boolean => c.id !== winnerId)!.id;
-      const questionId: number = this.state.question!.id;
-      const response = await axios.post(`${config.api_endpoint}/vote`, {winnerId, loserId, questionId});
-      console.log(response);
+      const companies = this.state.companies.map((company) => {
+        company.winner = Boolean(company.id === winnerId);
+        return company;
+      });
+      this.setState({companies}, async (): Promise<void> => {
+        const loserId: number = this.state.companies.find((c: Company): boolean => c.id !== winnerId)!.id;
+        const questionId: number = this.state.question!.id;
+        const response = await axios.post(`${config.api_endpoint}/vote`, {winnerId, loserId, questionId});
+        this.setState({
+          results: response.data,
+        });
+      });
     } catch (e) {
       console.error(e);
     }
