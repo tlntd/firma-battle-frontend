@@ -121,11 +121,11 @@ class PlayingModal extends Component<PlayingModalProps, PlayingModalState> {
     }
   }
 
-  async voteForCompany(winner_id: number): Promise<void> {
+  async voteForCompany(winnerId: number): Promise<void> {
     try {
-      const loser_id: number = this.state.companies.find((c: Company): boolean => c.id !== winner_id)!.id;
-      const question_id: number = this.state.question!.id;
-      const response = await axios.post(`${config.api_endpoint}/vote`, {winner_id, loser_id, question_id});
+      const loserId: number = this.state.companies.find((c: Company): boolean => c.id !== winnerId)!.id;
+      const questionId: number = this.state.question!.id;
+      const response = await axios.post(`${config.api_endpoint}/vote`, {winnerId, loserId, questionId});
       console.log(response);
     } catch (e) {
       console.error(e);
