@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import './App.scss';
 import Header from './Header';
-import QuestionsPanel from './ladderit/QuestionsPanel';
+import QuestionsPanel from './questions/QuestionsPanel';
 import FaqPanel from './faq/FaqPanel';
 import HomePanel from './home/HomePanel';
 import CompaniesPanel from './companies/CompaniesPanel';
