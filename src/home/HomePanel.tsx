@@ -16,9 +16,10 @@ const HomePanel: React.FC = () => {
           <Jumbotron fluid>
             <Container>
               <h1>Firma-battle!</h1>
-              <p>Vähemmän puhetta ja enemmän asiaa. Nyt laitetaan Suomen IT-alan firmat oikeasti järjestykseen.</p>
+              <h5>Mihin tarvii faktaa kun on fiilistä? Nyt laitetaan Suomen IT-alan firmat oikeasti järjestykseen.</h5>
+              <hr />
               <p>
-                <Button variant="primary" onClick={() => setPlaying(true)}>Vastaamaan</Button>
+                <Button variant="primary" onClick={() => setPlaying(true)}>Aloita</Button>
               </p>
             </Container>
           </Jumbotron>
