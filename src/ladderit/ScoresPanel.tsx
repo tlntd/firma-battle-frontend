@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react';
+import React, {Fragment} from 'react';
 import Table from 'react-bootstrap/Table';
 import {Question} from '../App';
 import Spinner from '../common/Spinner';
@@ -8,14 +8,7 @@ type ScoresPanelProps = {
   question: Question | undefined
 }
 
-type ScoresPanelState = {
-
-}
-
-export default class ScoresPanel extends Component<ScoresPanelProps, ScoresPanelState> {
-  render() {
-    const {question} = this.props;
-
+const ScoresPanel: React.FC<ScoresPanelProps> = ({question}) => {
     if (!question || !question.scores) {
       return <Spinner />;
     }
@@ -34,14 +27,13 @@ export default class ScoresPanel extends Component<ScoresPanelProps, ScoresPanel
             </tr>
           </thead>
           <tbody>
-            {this.renderScores(question)}
+            {renderScores(question)}
           </tbody>
         </Table>
       </Fragment>
     );
-  }
 
-  renderScores(question: Question) {
+  function renderScores(question: Question) {
     return question.scores.map((score, i) => {
       return (
         <tr key={score.id}>
@@ -54,4 +46,6 @@ export default class ScoresPanel extends Component<ScoresPanelProps, ScoresPanel
       )
     })
   }
-}
+};
+
+export default ScoresPanel;
