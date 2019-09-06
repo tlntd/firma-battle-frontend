@@ -8,16 +8,16 @@ import {UpdateQuestionsState, Question} from '../App';
 import config from '../config';
 import ScoresPanel from './ScoresPanel';
 
-type LadderitProps = {
+type QuestionsPanelProps = {
   hash: string,
   updateState: (state: UpdateQuestionsState) => void,
   questions: Question[]
 }
 
-type LadderitState = {
+type QuestionsPanelState = {
 }
 
-export default class LadderitPanel extends Component<LadderitProps, LadderitState> {
+export default class QuestionsPanel extends Component<QuestionsPanelProps, QuestionsPanelState> {
   async componentDidMount(): Promise<void> {
     try {
       const response = await axios.get(`${config.api_endpoint}/questions`);

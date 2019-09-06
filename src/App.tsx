@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import './App.scss';
 import Header from './Header';
-import LadderitPanel from './ladderit/LadderitPanel';
+import QuestionsPanel from './ladderit/QuestionsPanel';
 import FaqPanel from './faq/FaqPanel';
 import HomePanel from './home/HomePanel';
 import CompaniesPanel from './companies/CompaniesPanel';
@@ -78,8 +78,7 @@ class App extends Component<AppProps, AppState> {
     const {hash, questions, companies} = this.state;
 
     if (hash.includes('#kysymykset')) {
-      return <LadderitPanel hash={hash} questions={questions} updateState={(state: UpdateQuestionsState) => this.setState(state)}/>;
-
+      return <QuestionsPanel hash={hash} questions={questions} updateState={(state: UpdateQuestionsState) => this.setState(state)}/>;
     } else if (hash.includes('#yritykset')) {
       return <CompaniesPanel hash={hash} companies={companies} updateState={(state: UpdateCompaniesState) => this.setState(state)} />;
     } else if (hash === '#faq') {
