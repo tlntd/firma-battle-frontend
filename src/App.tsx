@@ -17,6 +17,7 @@ export type Score = {
   scores: number,
   pluralText: string,
   opponent_name?: string,
+  companyId?: number,
   question_text?: string
 };
 

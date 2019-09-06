@@ -39,7 +39,7 @@ const QuestionScoresPanel: React.FC<QuestionScoresPanelProps> = ({question}) => 
         <tr key={score.id}>
           <td>{i+1}.</td>
           <td>{score.score}</td>
-          <td>{score.name}</td>
+          <td><a href={`#yritykset-${score.companyId}`}>{score.name}</a></td>
           <td>{score.wins}</td>
           <td>{score.scores - score.wins}</td>
         </tr>
