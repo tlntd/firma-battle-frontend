@@ -6,7 +6,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import axios from 'axios';
 import {UpdateQuestionsState, Question} from '../App';
 import config from '../config';
-import ScoresPanel from './ScoresPanel';
+import QuestionScoresPanel from './QuestionScoresPanel';
 
 type QuestionsPanelProps = {
   hash: string,
@@ -66,7 +66,7 @@ export default class QuestionsPanel extends Component<QuestionsPanelProps, Quest
     const id = this.getQuestionsId();
 
     if (id) {
-      return <ScoresPanel question={this.getQuestion()} />;
+      return <QuestionScoresPanel question={this.getQuestion()} />;
     }
 
     return (

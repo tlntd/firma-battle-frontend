@@ -2,13 +2,13 @@ import React, {Fragment} from 'react';
 import Table from 'react-bootstrap/Table';
 import {Question} from '../App';
 import Spinner from '../common/Spinner';
-import './ScoresPanel.scss';
+import './QuestionScoresPanel.scss';
 
-type ScoresPanelProps = {
+type QuestionScoresPanelProps = {
   question: Question | undefined
 }
 
-const ScoresPanel: React.FC<ScoresPanelProps> = ({question}) => {
+const QuestionScoresPanel: React.FC<QuestionScoresPanelProps> = ({question}) => {
     if (!question || !question.scores) {
       return <Spinner />;
     }
@@ -48,4 +48,4 @@ const ScoresPanel: React.FC<ScoresPanelProps> = ({question}) => {
   }
 };
 
-export default ScoresPanel;
+export default QuestionScoresPanel;
