@@ -4,6 +4,7 @@ import Header from './Header';
 import LadderitPanel from './ladderit/LadderitPanel';
 import FaqPanel from './faq/FaqPanel';
 import HomePanel from './home/HomePanel';
+import CompaniesPanel from './companies/CompaniesPanel';
 
 type AppProps = {};
 
@@ -13,7 +14,7 @@ export type Score = {
   name: string,
   wins: number,
   scores: number
-}
+};
 
 export type Question = {
   id: number,
@@ -22,13 +23,24 @@ export type Question = {
   scores: Score[]
 };
 
-type AppState = {
-  hash: string,
-  questions: Question[]
+export type Company = {
+  id: number,
+  name: string,
+  scores: Score[]
 };
 
-export type UpdateState = {
+type AppState = {
+  hash: string,
+  questions: Question[],
+  companies: Company[]
+};
+
+export type UpdateQuestionsState = {
   questions: Question[]
+}
+
+export type UpdateCompaniesState = {
+  companies: Company[]
 }
 
 class App extends Component<AppProps, AppState> {
@@ -36,7 +48,8 @@ class App extends Component<AppProps, AppState> {
     super(props);
     this.state = {
       hash: document.location.hash,
-      questions: []
+      questions: [],
+      companies: []
     };
   }
 
@@ -60,10 +73,13 @@ class App extends Component<AppProps, AppState> {
   }
 
   defineContent() {
-    const {hash, questions} = this.state;
+    const {hash, questions, companies} = this.state;
 
     if (hash.includes('#kysymykset')) {
-      return <LadderitPanel hash={hash} questions={questions} updateState={(state: UpdateState) => this.setState(state)}/>;
+      return <LadderitPanel hash={hash} questions={questions} updateState={(state: UpdateQuestionsState) => this.setState(state)}/>;
+
+    } else if (hash.includes('#yritykset')) {
+      return <CompaniesPanel hash={hash} companies={companies} updateState={(state: UpdateCompaniesState) => this.setState(state)} />;
     } else if (hash === '#faq') {
       return <FaqPanel/>;
     }

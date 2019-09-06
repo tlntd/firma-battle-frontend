@@ -4,13 +4,13 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
 import axios from 'axios';
-import {UpdateState, Question} from '../App';
+import {UpdateQuestionsState, Question} from '../App';
 import config from '../config';
 import ScoresPanel from './ScoresPanel';
 
 type LadderitProps = {
   hash: string,
-  updateState: (state: UpdateState) => void,
+  updateState: (state: UpdateQuestionsState) => void,
   questions: Question[]
 }
 
