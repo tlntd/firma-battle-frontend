@@ -61,10 +61,10 @@ class App extends Component<AppProps, AppState> {
   }
 
   defineContent() {
-    const {hash} = this.state;
+    const {hash, questions} = this.state;
 
     if (hash.includes('#ladderit')) {
-      return <LadderitPanel questions={this.state.questions} updateState={(state: UpdateState) => this.setState(state)}/>;
+      return <LadderitPanel hash={hash} questions={questions} updateState={(state: UpdateState) => this.setState(state)}/>;
     } else if (hash === '#faq') {
       return <FaqPanel/>;
     }
