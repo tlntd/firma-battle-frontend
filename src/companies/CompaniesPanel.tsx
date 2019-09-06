@@ -6,7 +6,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import axios from 'axios';
 import {Company, UpdateCompaniesState} from '../App';
 import config from '../config';
-import CompanyScoresPanel from './CompanyScoresPanel';
+import CompanyQuestionsPanel from './CompanyQuestionsPanel';
 
 type CompaniesProps = {
   hash: string,
@@ -33,12 +33,12 @@ export default class CompaniesPanel extends Component<CompaniesProps, CompaniesS
 
     if (id) {
       const question = this.getCompany();
-      if (question && !question.scores) {
+      if (question && !question.questions) {
         try {
-          const response = await axios.get(`${config.api_endpoint}/companies/${id}/scores`);
+          const response = await axios.get(`${config.api_endpoint}/companies/${id}/questions`);
           const patchedCompanies = companies.map((company) => {
             if (company.id === id) {
-              company.scores = response.data;
+              company.questions = response.data;
             }
             return company;
           });
@@ -66,7 +66,7 @@ export default class CompaniesPanel extends Component<CompaniesProps, CompaniesS
     const id = this.getCompanyId();
 
     if (id) {
-      return <CompanyScoresPanel company={this.getCompany()} />
+      return <CompanyQuestionsPanel company={this.getCompany()} />
     }
 
     return (

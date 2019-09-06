@@ -21,13 +21,14 @@ export type Question = {
   id: number,
   text: string,
   pluralText: string,
-  scores: Score[]
+  scores: Score[],
+  score?: number
 };
 
 export type Company = {
   id: number,
   name: string,
-  scores: Score[]
+  questions: Question[]
 };
 
 type AppState = {
