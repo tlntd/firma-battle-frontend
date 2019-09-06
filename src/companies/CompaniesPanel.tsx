@@ -4,9 +4,10 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
 import axios from 'axios';
-import {Company, UpdateCompaniesState} from '../App';
+import {Company, Question, UpdateCompaniesState} from '../App';
 import config from '../config';
 import CompanyQuestionsPanel from './CompanyQuestionsPanel';
+import CompanyScoresPanel from './CompanyScoresPanel';
 
 type CompaniesProps = {
   hash: string,
@@ -28,24 +29,20 @@ export default class CompaniesPanel extends Component<CompaniesProps, CompaniesS
   }
 
   async componentDidUpdate(): Promise<void> {
-    const {hash, companies, updateState} = this.props;
-    const id: number = parseInt(hash.split('-')[1], 10);
+    const companyId: number = this.getCompanyId();
+    const questionId: number = this.getQuestionId();
 
-    if (id) {
-      const question = this.getCompany();
-      if (question && !question.questions) {
-        try {
-          const response = await axios.get(`${config.api_endpoint}/companies/${id}/questions`);
-          const patchedCompanies = companies.map((company) => {
-            if (company.id === id) {
-              company.questions = response.data;
-            }
-            return company;
-          });
-          updateState({companies: patchedCompanies});
-        } catch (e) {
-          console.error(e);
-        }
+    if (companyId) {
+      const company = this.getCompany();
+      if (company && !company.questions) {
+        await this.fetchQuestions(companyId);
+      }
+    }
+
+    if (companyId && questionId) {
+      const question = this.getQuestion();
+      if (question && !question.scores) {
+        await this.fetchQuestionScores(companyId, questionId);
       }
     }
   }
@@ -63,10 +60,15 @@ export default class CompaniesPanel extends Component<CompaniesProps, CompaniesS
   }
 
   defineContent() {
-    const id = this.getCompanyId();
+    const companyId = this.getCompanyId();
+    const questionId = this.getQuestionId();
 
-    if (id) {
-      return <CompanyQuestionsPanel company={this.getCompany()} />
+    if (companyId && questionId) {
+      return <CompanyScoresPanel company={this.getCompany()} question={this.getQuestion()} />;
+    }
+
+    if (companyId) {
+      return <CompanyQuestionsPanel company={this.getCompany()} />;
     }
 
     return (
@@ -86,11 +88,57 @@ export default class CompaniesPanel extends Component<CompaniesProps, CompaniesS
     });
   }
 
+  async fetchQuestions(companyId: number): Promise<void> {
+    const {companies, updateState} = this.props;
+    try {
+      const response = await axios.get(`${config.api_endpoint}/companies/${companyId}/questions`);
+      const patchedCompanies = companies.map((company) => {
+        if (company.id === companyId) {
+          company.questions = response.data;
+        }
+        return company;
+      });
+      updateState({companies: patchedCompanies});
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async fetchQuestionScores(companyId: number, questionId: number): Promise<void> {
+    const {companies, updateState} = this.props;
+    try {
+      const response = await axios.get(`${config.api_endpoint}/companies/${companyId}/questions/${questionId}/scores`);
+      const patchedCompanies = companies.map((company) => {
+        if (company.id === companyId) {
+          company.questions = company.questions.map((question) => {
+            if (question.id === questionId) {
+              question.scores = response.data;
+            }
+            return question;
+          });
+        }
+        return company;
+      });
+      updateState({companies: patchedCompanies});
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
   getCompanyId(): number {
     return parseInt(this.props.hash.split('-')[1], 10);
   }
 
   getCompany(): Company | undefined {
     return this.props.companies.find((company) => company.id === this.getCompanyId());
+  }
+
+  getQuestionId(): number {
+    return parseInt(this.props.hash.split('-')[3], 10);
+  }
+
+  getQuestion(): Question | undefined {
+    const company = this.getCompany();
+    return company && company.questions && company.questions.find((question) => question.id === this.getQuestionId());
   }
 }

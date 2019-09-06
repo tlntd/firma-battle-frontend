@@ -1,0 +1,19 @@
+.arrow {
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  position: relative;
+}
+
+.arrow-up {
+  @extend .arrow;
+  border-bottom: 12px solid green;
+  top: 6px;
+}
+
+.arrow-down {
+  @extend .arrow;
+  border-top: 14px solid #f00;
+  top: 5px;
+}

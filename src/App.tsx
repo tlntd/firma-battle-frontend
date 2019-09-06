@@ -11,10 +11,13 @@ type AppProps = {};
 export type Score = {
   id: number,
   score: number,
+  delta: number,
   name: string,
   wins: number,
   scores: number,
-  pluralText: string
+  pluralText: string,
+  opponent_name?: string,
+  question_text?: string
 };
 
 export type Question = {
