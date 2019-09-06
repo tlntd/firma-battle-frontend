@@ -7,19 +7,18 @@ import HomePanel from './home/HomePanel';
 
 type AppProps = {};
 
-export type Company = {
-  name: string
-};
-
 export type Score = {
   id: number,
   score: number,
-  company: Company
+  name: string,
+  wins: number,
+  scores: number
 }
 
 export type Question = {
   id: number,
-  text: string
+  text: string,
+  pluralText: string,
   scores: Score[]
 };
 

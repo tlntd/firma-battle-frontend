@@ -80,7 +80,7 @@ export default class LadderitPanel extends Component<LadderitProps, LadderitStat
     return this.props.questions.map((question) => {
       return (
         <ListGroup.Item key={question.id} action href={`#ladderit-${question.id}`}>
-          {question.text}
+          {question.pluralText}
         </ListGroup.Item>
       );
     });
