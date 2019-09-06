@@ -4,9 +4,8 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import ListGroup from 'react-bootstrap/ListGroup';
 import axios from 'axios';
-import {Company, Question, UpdateCompaniesState} from '../App';
+import {Company, UpdateCompaniesState} from '../App';
 import config from '../config';
-import CompanyQuestionsPanel from './CompanyQuestionsPanel';
 import CompanyScoresPanel from './CompanyScoresPanel';
 
 type CompaniesProps = {
@@ -15,8 +14,7 @@ type CompaniesProps = {
   companies: Company[]
 }
 
-type CompaniesState = {
-}
+type CompaniesState = {}
 
 export default class CompaniesPanel extends Component<CompaniesProps, CompaniesState> {
   async componentDidMount(): Promise<void> {
@@ -30,19 +28,12 @@ export default class CompaniesPanel extends Component<CompaniesProps, CompaniesS
 
   async componentDidUpdate(): Promise<void> {
     const companyId: number = this.getCompanyId();
-    const questionId: number = this.getQuestionId();
 
     if (companyId) {
       const company = this.getCompany();
       if (company && !company.questions) {
         await this.fetchQuestions(companyId);
-      }
-    }
-
-    if (companyId && questionId) {
-      const question = this.getQuestion();
-      if (question && !question.scores) {
-        await this.fetchQuestionScores(companyId, questionId);
+        await this.fetchScores(companyId);
       }
     }
   }
@@ -61,14 +52,10 @@ export default class CompaniesPanel extends Component<CompaniesProps, CompaniesS
 
   defineContent() {
     const companyId = this.getCompanyId();
-    const questionId = this.getQuestionId();
-
-    if (companyId && questionId) {
-      return <CompanyScoresPanel company={this.getCompany()} question={this.getQuestion()} />;
-    }
 
     if (companyId) {
-      return <CompanyQuestionsPanel company={this.getCompany()} />;
+      const company = this.getCompany();
+      return <CompanyScoresPanel company={company} scores={company && company.scores}/>;
     }
 
     return (
@@ -104,18 +91,13 @@ export default class CompaniesPanel extends Component<CompaniesProps, CompaniesS
     }
   }
 
-  async fetchQuestionScores(companyId: number, questionId: number): Promise<void> {
+  async fetchScores(companyId: number): Promise<void> {
     const {companies, updateState} = this.props;
     try {
-      const response = await axios.get(`${config.api_endpoint}/companies/${companyId}/questions/${questionId}/scores`);
+      const response = await axios.get(`${config.api_endpoint}/companies/${companyId}/scores`);
       const patchedCompanies = companies.map((company) => {
         if (company.id === companyId) {
-          company.questions = company.questions.map((question) => {
-            if (question.id === questionId) {
-              question.scores = response.data;
-            }
-            return question;
-          });
+          company.scores = response.data;
         }
         return company;
       });
@@ -131,14 +113,5 @@ export default class CompaniesPanel extends Component<CompaniesProps, CompaniesS
 
   getCompany(): Company | undefined {
     return this.props.companies.find((company) => company.id === this.getCompanyId());
-  }
-
-  getQuestionId(): number {
-    return parseInt(this.props.hash.split('-')[3], 10);
-  }
-
-  getQuestion(): Question | undefined {
-    const company = this.getCompany();
-    return company && company.questions && company.questions.find((question) => question.id === this.getQuestionId());
   }
 }

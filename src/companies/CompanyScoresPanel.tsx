@@ -1,23 +1,23 @@
 import React, {Fragment} from 'react';
-import {Company, Question} from '../App';
+import {Company, Score} from '../App';
 import Spinner from '../common/Spinner';
 import Table from 'react-bootstrap/Table';
 import './CompanyScoresPanel.scss';
 
 type Props = {
   company: Company | undefined,
-  question: Question | undefined
+  scores: Score[] | undefined,
+  questionId?: number
 }
 
-const CompanyScoresPanel: React.FC<Props> = ({company, question}) => {
-  if (!company || !question || !question.scores || !question.scores.length) {
+const CompanyScoresPanel: React.FC<Props> = ({company, scores}) => {
+  if (!company || !scores || !scores.length) {
     return <Spinner />;
   }
 
   return (
     <Fragment>
       <h2 className="Scores-title">{company.name}</h2>
-      <h4 className="Scores-title">{question.pluralText}</h4>
       <Table striped hover>
         <thead>
         <tr>
@@ -28,17 +28,18 @@ const CompanyScoresPanel: React.FC<Props> = ({company, question}) => {
         </tr>
         </thead>
         <tbody>
-        {renderScores(question)}
+        {renderScores(scores)}
         </tbody>
       </Table>
     </Fragment>
   );
 
-  function renderScores(question: Question) {
-    return question.scores.map((score, i) => {
+  function renderScores(scores: Score[]) {
+    return scores.map((score, i) => {
       return (
         <tr key={i}>
-          <td>{score.opponent_name}</td>
+          <td><a href={`#yritykset-${score.opponentId}`}>{score.opponentName}</a></td>
+          <td><a href={`#kysymykset-${score.questionId}`}>{score.questionText}</a></td>
           {renderDelta(score.delta)}
           {renderArrow(score.delta)}
         </tr>

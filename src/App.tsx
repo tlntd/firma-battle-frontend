@@ -16,9 +16,11 @@ export type Score = {
   wins: number,
   scores: number,
   pluralText: string,
-  opponent_name?: string,
+  opponentName?: string,
+  opponentId?: number,
   companyId?: number,
-  question_text?: string
+  questionText?: string
+  questionId?: number
 };
 
 export type Question = {
@@ -32,7 +34,8 @@ export type Question = {
 export type Company = {
   id: number,
   name: string,
-  questions: Question[]
+  questions: Question[],
+  scores: Score[],
 };
 
 type AppState = {
