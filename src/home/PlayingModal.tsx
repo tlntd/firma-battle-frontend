@@ -140,7 +140,7 @@ class PlayingModal extends Component<PlayingModalProps, PlayingModalState> {
 
     if (results && company.winner) {
       return (
-        <h4 className={`score-up ${css(styles.up)}`}>
+        <h4 className={`score-up text-success ${css(styles.up)}`}>
           +{results.winnerDelta} pistettä
         </h4>
       );
@@ -148,7 +148,7 @@ class PlayingModal extends Component<PlayingModalProps, PlayingModalState> {
 
     if (results) {
       return (
-        <h4 className={`score-down ${css(styles.down)}`}>
+        <h4 className={`score-down text-danger ${css(styles.down)}`}>
           {results.loserDelta} pistettä
         </h4>
       );
