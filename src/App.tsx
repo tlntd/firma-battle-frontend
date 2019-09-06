@@ -13,7 +13,8 @@ export type Score = {
   score: number,
   name: string,
   wins: number,
-  scores: number
+  scores: number,
+  pluralText: string
 };
 
 export type Question = {

@@ -6,7 +6,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import axios from 'axios';
 import {Company, UpdateCompaniesState} from '../App';
 import config from '../config';
-// import ScoresPanel from './ScoresPanel';
+import CompanyScoresPanel from './CompanyScoresPanel';
 
 type CompaniesProps = {
   hash: string,
@@ -66,7 +66,7 @@ export default class CompaniesPanel extends Component<CompaniesProps, CompaniesS
     const id = this.getCompanyId();
 
     if (id) {
-      return <div>Scores!</div>;
+      return <CompanyScoresPanel company={this.getCompany()} />
     }
 
     return (
