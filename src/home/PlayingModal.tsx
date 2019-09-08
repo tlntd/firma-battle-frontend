@@ -71,7 +71,7 @@ class PlayingModal extends Component<PlayingModalProps, PlayingModalState> {
     return (
       <Modal
         centered
-        size="xl"
+        size="lg"
         show={showing}
         onEntered={this.loadQuestion}
         onHide={this.handleClose}
