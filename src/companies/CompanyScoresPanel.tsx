@@ -21,9 +21,10 @@ const CompanyScoresPanel: React.FC<Props> = ({company, scores}) => {
       <Table striped hover>
         <thead>
         <tr>
-          <th>Vastustaja</th>
           <th>Kysymys</th>
-          <th>Pisteet</th>
+          <th>Vastustaja</th>
+          <th>Ne</th>
+          <th>Me</th>
           <th></th>
         </tr>
         </thead>
@@ -38,13 +39,22 @@ const CompanyScoresPanel: React.FC<Props> = ({company, scores}) => {
     return scores.map((score, i) => {
       return (
         <tr key={i}>
-          <td><a href={`#yritykset-${score.opponentId}`}>{score.opponentName}</a></td>
           <td><a href={`#kysymykset-${score.questionId}`}>{score.questionText}</a></td>
+          <td><a href={`#yritykset-${score.opponentId}`}>{score.opponentName}</a></td>
+          {renderOpponentDelta(score.delta)}
           {renderDelta(score.delta)}
           {renderArrow(score.delta)}
         </tr>
       )
     })
+  }
+
+  function renderOpponentDelta(delta: number) {
+    const opponentDelta: number = delta * -1;
+    if (opponentDelta >= 0) {
+      return <td className="text-success">+{opponentDelta}</td>;
+    }
+    return <td className="text-danger">{opponentDelta}</td>;
   }
 
   function renderDelta(delta: number) {
