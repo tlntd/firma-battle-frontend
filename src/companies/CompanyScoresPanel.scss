@@ -8,12 +8,12 @@
 
 .arrow-up {
   @extend .arrow;
-  border-bottom: 12px solid #5cb85c;
+  border-bottom: 12px solid var(--success);
   top: 6px;
 }
 
 .arrow-down {
   @extend .arrow;
-  border-top: 14px solid #d9534f;
+  border-top: 14px solid var(--danger);
   top: 5px;
 }
