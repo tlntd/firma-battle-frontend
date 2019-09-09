@@ -1,4 +1,6 @@
+const endpoint: string = 'https://firma-battle-api.herokuapp.com';
+
 export default {
-  api_endpoint: 'https://firma-battle-api.herokuapp.com',
-  image_endpoint: 'https://firma-battle-api.herokuapp.com/images'
+  api_endpoint: endpoint,
+  image_endpoint: `${endpoint}/images`
 };
