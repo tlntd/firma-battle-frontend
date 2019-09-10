@@ -23,8 +23,8 @@ const CompanyScoresPanel: React.FC<Props> = ({company, scores}) => {
         <tr>
           <th>Kysymys</th>
           <th>Vastustaja</th>
-          <th>Ne</th>
           <th>Me</th>
+          <th>Ne</th>
           <th></th>
         </tr>
         </thead>
@@ -41,8 +41,8 @@ const CompanyScoresPanel: React.FC<Props> = ({company, scores}) => {
         <tr key={i}>
           <td><a href={`#tulokset-${score.questionId}`}>{score.questionText}</a></td>
           <td><a href={`#yritykset-${score.opponentId}`}>{score.opponentName}</a></td>
-          {renderOpponentDelta(score.delta)}
           {renderDelta(score.delta)}
+          {renderOpponentDelta(score.delta)}
           {renderArrow(score.delta)}
         </tr>
       )
