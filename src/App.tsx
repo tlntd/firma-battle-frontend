@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import './App.scss';
-import Header from './Header';
+import Header from './common/Header';
 import QuestionsPanel from './questions/QuestionsPanel';
 import FaqPanel from './faq/FaqPanel';
 import HomePanel from './home/HomePanel';
