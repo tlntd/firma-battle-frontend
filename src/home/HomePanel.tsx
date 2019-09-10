@@ -16,8 +16,14 @@ const HomePanel: React.FC = () => {
           <Jumbotron fluid>
             <Container>
               <h1>Firma-battle!</h1>
-              <h5 className="font-weight-normal">Mihin tarvii faktaa kun on fiilistä? Nyt laitetaan Suomen IT-alan firmat oikeasti järjestykseen.</h5>
-              <hr />
+              <h5 className="font-weight-normal">
+                Mihin tarvii faktaa kun on fiilistä? Nyt laitetaan Suomen IT-alan firmat oikeasti järjestykseen.
+              </h5>
+              <p>
+                Firmabattlessa valitset voittajan sen mukaan, kumpi yritys sinun mielestäsi vastaa paremmin
+                annettuun kysymykseen. Pisteenlasku ja ranking perustuu Clanbasesta tuttuun ELO-järjestelmään,
+                ja tuloksia pääset katsomaan <a href="#tulokset">täältä</a>.
+              </p>
               <p>
                 <Button size="lg" variant="primary" onClick={() => setPlaying(true)}>Aloita</Button>
               </p>

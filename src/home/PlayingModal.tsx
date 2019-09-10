@@ -7,6 +7,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
+import ModalHeader from 'react-bootstrap/ModalHeader';
 import Button from 'react-bootstrap/Button';
 import { fadeOutUp, fadeOutDown } from 'react-animations';
 import {css, StyleSheet} from 'aphrodite';
@@ -39,8 +40,7 @@ type Results = {
 type PlayingModalState = {
   question: Question | undefined,
   companies: Array<Company>,
-  results: Results | undefined,
-  voteLoading: boolean
+  results: Results | undefined
 };
 
 class PlayingModal extends Component<PlayingModalProps, PlayingModalState> {
@@ -48,8 +48,7 @@ class PlayingModal extends Component<PlayingModalProps, PlayingModalState> {
     return {
       question: undefined,
       companies: [],
-      results: undefined,
-      voteLoading: false
+      results: undefined
     };
   }
 
@@ -77,6 +76,7 @@ class PlayingModal extends Component<PlayingModalProps, PlayingModalState> {
         onHide={this.handleClose}
         aria-labelledby="example-modal-sizes-title-lg"
       >
+        <ModalHeader closeButton={true} />
         <Modal.Body>
           {this.defineContent()}
         </Modal.Body>
@@ -106,6 +106,14 @@ class PlayingModal extends Component<PlayingModalProps, PlayingModalState> {
           {this.renderCompany(company1)}
           {this.renderCompany(company2)}
         </Row>
+        <Row>
+          <Col>
+            <div className="Modal-links">
+              <Button variant="link" onClick={() => this.newQuestion()}>Skippaa</Button>
+              <a className="btn btn-link" href="#tulokset">Tulokset</a>
+            </div>
+          </Col>
+        </Row>
       </Container>
     )
   }
@@ -114,15 +122,20 @@ class PlayingModal extends Component<PlayingModalProps, PlayingModalState> {
     return (
       <Col>
         <Card>
-          <Card.Img variant="top" src={`${config.image_endpoint}/${company.logo}`} />
-          {this.renderButton(company)}
+          <Card.Img
+            variant="top"
+            src={`${config.image_endpoint}/${company.logo}`}
+            alt={company.name}
+            onClick={() => this.voteForCompany(company.id)}
+          />
+          {this.renderPoints(company)}
         </Card>
       </Col>
     )
   }
 
-  renderButton (company: Company) {
-    const {voteLoading, results} = this.state;
+  renderPoints (company: Company) {
+    const {results} = this.state;
     const styles = StyleSheet.create({
       up: {
         animationName: fadeOutUp,
@@ -133,10 +146,6 @@ class PlayingModal extends Component<PlayingModalProps, PlayingModalState> {
         animationDuration: '2.5s'
       }
     });
-
-    if (voteLoading && company.winner) {
-      return <Spinner />;
-    }
 
     if (results && company.winner) {
       return (
@@ -153,12 +162,6 @@ class PlayingModal extends Component<PlayingModalProps, PlayingModalState> {
         </h4>
       );
     }
-
-    return (
-      <Button variant="primary" onClick={() => this.voteForCompany(company.id)}>
-        {company.name}
-      </Button>
-    );
   }
 
   async loadQuestion(): Promise<void> {
@@ -186,15 +189,19 @@ class PlayingModal extends Component<PlayingModalProps, PlayingModalState> {
         const response = await axios.post(`${config.api_endpoint}/vote`, {winnerId, loserId, questionId});
         this.setState({results: response.data}, () => {
           setTimeout(() => {
-            this.setState(PlayingModal.getEmptyState(), () => {
-              this.loadQuestion();
-            });
+            this.newQuestion();
           }, 2000);
         });
       });
     } catch (e) {
       console.error(e);
     }
+  }
+
+  newQuestion = () => {
+    this.setState(PlayingModal.getEmptyState(), () => {
+      this.loadQuestion();
+    });
   }
 }
 

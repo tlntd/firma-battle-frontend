@@ -7,23 +7,36 @@
   }
 }
 
+.modal-header {
+  padding: 0;
+
+  > button {
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    z-index: 5;
+  }
+}
+
 .card {
   border: 0;
-  min-height: 275px;
+  box-shadow: none;
 }
 
 .card-img-top {
-  margin-bottom: 2rem;
+  cursor: pointer;
 }
-
-.card-button-spacer {
-  height: 38px;
-}
-
 
 .score-up,
 .score-down {
   font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: calc(50% - 50px);
+}
+
+.Modal-links {
+  margin-top: 2rem;
   text-align: center;
 }
 
