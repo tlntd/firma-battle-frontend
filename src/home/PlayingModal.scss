@@ -25,14 +25,26 @@
 
 .card-img-top {
   cursor: pointer;
+
+  &:hover {
+    transition: box-shadow 200ms ease-in-out;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  }
 }
 
 .score-up,
 .score-down {
   font-weight: bold;
   position: absolute;
-  top: 50%;
   left: calc(50% - 50px);
+}
+
+.score-up {
+  top: 25%;
+}
+
+.score-down {
+  bottom: 25%;
 }
 
 .Modal-links {
