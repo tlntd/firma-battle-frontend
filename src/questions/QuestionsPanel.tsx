@@ -70,9 +70,12 @@ export default class QuestionsPanel extends Component<QuestionsPanelProps, Quest
     }
 
     return (
-      <ListGroup variant="flush">
-        {this.renderQuestions()}
-      </ListGroup>
+      <>
+        <h2 className="Scores-title">Valitse kysymys</h2>
+        <ListGroup variant="flush">
+          {this.renderQuestions()}
+        </ListGroup>
+      </>
     );
   }
 
