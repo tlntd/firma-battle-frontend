@@ -1,6 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import './App.scss';
 import Header from './common/Header';
+import Footer from './common/Footer';
 import QuestionsPanel from './questions/QuestionsPanel';
 import FaqPanel from './faq/FaqPanel';
 import HomePanel from './home/HomePanel';
@@ -77,6 +78,7 @@ class App extends Component<AppProps, AppState> {
         <div className="App">
           {this.defineContent()}
         </div>
+        <Footer hash={this.state.hash} />
       </Fragment>
     );
   }
