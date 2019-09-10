@@ -20,7 +20,7 @@ const FaqPanel: React.FC = () => {
           <hr />
           <h3>Miten saan yritykseni mukaan?</h3>
           <p>
-            Heitä ehdotus yrityksestä minulle meilitse: <a href="mailto:teemu@talented.fi?subject=Uusi%20yritys%20Firmabattleen&body=Heippa%2C%0A%0Alis%C3%A4tk%C3%A4%C3%A4%20t%C3%A4m%C3%A4%20yritys%20Firmabattleen%3A%0A%0AYritys%3A%20%0AKotisivu%3A%20%0A%0AKiitos!">teemu@talented.fi</a>.
+            Heitä ehdotus yrityksestä meilitse: <a href="mailto:teemu@talented.fi?subject=Uusi%20yritys%20Firmabattleen&body=Heippa%2C%0A%0Alis%C3%A4tk%C3%A4%C3%A4%20t%C3%A4m%C3%A4%20yritys%20Firmabattleen%3A%0A%0AYritys%3A%20%0AKotisivu%3A%20%0A%0AKiitos!">teemu@talented.fi</a>.
           </p>
         </Col>
       </Row>
