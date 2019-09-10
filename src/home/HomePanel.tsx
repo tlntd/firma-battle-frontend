@@ -15,7 +15,7 @@ const HomePanel: React.FC = () => {
         <Col>
           <Jumbotron fluid>
             <Container>
-              <h1>Firma-battle!</h1>
+              <h1>Firmabattle!</h1>
               <h5 className="font-weight-normal">
                 Mihin tarvii faktaa kun on fiilistä? Nyt laitetaan Suomen IT-alan firmat oikeasti järjestykseen.
               </h5>
