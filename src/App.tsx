@@ -84,7 +84,7 @@ class App extends Component<AppProps, AppState> {
   defineContent() {
     const {hash, questions, companies} = this.state;
 
-    if (hash.includes('#kysymykset')) {
+    if (hash.includes('#tulokset')) {
       return <QuestionsPanel hash={hash} questions={questions} updateState={(state: UpdateQuestionsState) => this.setState(state)}/>;
     } else if (hash.includes('#yritykset')) {
       return <CompaniesPanel hash={hash} companies={companies} updateState={(state: UpdateCompaniesState) => this.setState(state)} />;

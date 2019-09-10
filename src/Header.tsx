@@ -11,7 +11,7 @@ const Header: React.FC = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav"/>
         <Navbar.Collapse id="navbar">
           <Nav className="mr-auto">
-            <Nav.Link href="/#kysymykset">Kysymykset</Nav.Link>
+            <Nav.Link href="/#tulokset">Tulokset</Nav.Link>
             <Nav.Link href="/#yritykset">Yritykset</Nav.Link>
             <Nav.Link href="/#faq">FAQ</Nav.Link>
           </Nav>

@@ -79,7 +79,7 @@ export default class QuestionsPanel extends Component<QuestionsPanelProps, Quest
   renderQuestions() {
     return this.props.questions.map((question) => {
       return (
-        <ListGroup.Item key={question.id} action href={`#kysymykset-${question.id}`}>
+        <ListGroup.Item key={question.id} action href={`#tulokset-${question.id}`}>
           {question.pluralText}
         </ListGroup.Item>
       );

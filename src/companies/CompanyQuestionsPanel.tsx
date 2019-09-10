@@ -34,7 +34,7 @@ const CompanyQuestionsPanel: React.FC<Props> = ({company}) => {
       return (
         <tr key={question.id}>
           <td>{question.score}</td>
-          <td><a href={`#kysymykset-${question.id}`}>{question.pluralText}</a></td>
+          <td><a href={`#tulokset-${question.id}`}>{question.pluralText}</a></td>
         </tr>
       );
     });

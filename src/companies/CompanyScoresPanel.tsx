@@ -39,7 +39,7 @@ const CompanyScoresPanel: React.FC<Props> = ({company, scores}) => {
     return scores.map((score, i) => {
       return (
         <tr key={i}>
-          <td><a href={`#kysymykset-${score.questionId}`}>{score.questionText}</a></td>
+          <td><a href={`#tulokset-${score.questionId}`}>{score.questionText}</a></td>
           <td><a href={`#yritykset-${score.opponentId}`}>{score.opponentName}</a></td>
           {renderOpponentDelta(score.delta)}
           {renderDelta(score.delta)}
