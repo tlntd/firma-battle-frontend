@@ -42,9 +42,7 @@ export default class CompaniesPanel extends Component<CompaniesProps, CompaniesS
     return (
       <Container>
         <Row>
-          <Col>
-            {this.defineContent()}
-          </Col>
+          {this.defineContent()}
         </Row>
       </Container>
     );
@@ -58,15 +56,30 @@ export default class CompaniesPanel extends Component<CompaniesProps, CompaniesS
       return <CompanyScoresPanel company={company} scores={company && company.scores}/>;
     }
 
-    return (
-      <ListGroup variant="flush">
-        {this.renderCompanies()}
-      </ListGroup>
-    );
+    const companiesList: Company[][] = this.props.companies.reduce((acc: Company[][], c: Company, i: number) => {
+      if (i % 3 === 0) {
+        acc[0].push(c);
+      } else if (i % 2 === 0) {
+        acc[1].push(c);
+      } else {
+        acc[2].push(c);
+      }
+      return acc;
+    }, [[], [], []]);
+
+    return companiesList.map((companies) => {
+      return (
+        <Col>
+          <ListGroup variant="flush">
+            {this.renderCompanies(companies)}
+          </ListGroup>
+        </Col>
+      );
+    });
   }
 
-  renderCompanies() {
-    return this.props.companies.map((company) => {
+  renderCompanies(companies: Company[]) {
+    return companies.map((company) => {
       return (
         <ListGroup.Item key={company.id} action href={`#yritykset-${company.id}`}>
           {company.name}
