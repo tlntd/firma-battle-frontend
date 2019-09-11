@@ -15,7 +15,7 @@ const FaqPanel: React.FC = () => {
           <hr />
           <h3>Miten tämä toimii?</h3>
           <p>
-            Helposti: arvotaan ensin kysymys ja siihen kaksi yritystä. Käyttäjä valitsee yrityksen joka vastaa kysymykseen hänen mielestä paremmin. Pisteet lasketaan kysymyksittäin käyttäen vanha kunnon (Clanbasesta tuttua) <a href="https://en.wikipedia.org/wiki/Elo_rating_system">ELO-lukua</a>.
+            Helposti: arvotaan ensin kysymys ja siihen kaksi yritystä. Käyttäjä valitsee yrityksen joka vastaa kysymykseen hänen mielestään paremmin. Pisteet lasketaan kysymyksittäin käyttäen vanhaa kunnon (Clanbasesta tuttua) <a href="https://en.wikipedia.org/wiki/Elo_rating_system">ELO-lukua</a>.
           </p>
           <hr />
           <h3>Miten saan yritykseni mukaan?</h3>
