@@ -3,6 +3,10 @@ import {Company, Score} from '../App';
 import Spinner from '../common/Spinner';
 import Table from 'react-bootstrap/Table';
 import './CompanyScoresPanel.scss';
+import Breadcrumb from 'react-bootstrap/Breadcrumb';
+import Row from 'react-bootstrap/Row';
+import Container from 'react-bootstrap/Container';
+import Col from 'react-bootstrap/Col';
 
 type Props = {
   company: Company | undefined,
@@ -16,23 +20,35 @@ const CompanyScoresPanel: React.FC<Props> = ({company, scores}) => {
   }
 
   return (
-    <Fragment>
-      <h2 className="Scores-title">{company.name}</h2>
-      <Table striped hover>
-        <thead>
-        <tr>
-          <th>Kysymys</th>
-          <th>Vastustaja</th>
-          <th>Me</th>
-          <th>Ne</th>
-          <th></th>
-        </tr>
-        </thead>
-        <tbody>
-        {renderScores(scores)}
-        </tbody>
-      </Table>
-    </Fragment>
+    <Container>
+      <Row>
+        <Col>
+          <Breadcrumb>
+            <Breadcrumb.Item href="/#">Etusivu</Breadcrumb.Item>
+            <Breadcrumb.Item href="#yritykset">Yritykset</Breadcrumb.Item>
+          </Breadcrumb>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+        <h2 className="Scores-title">{company.name}</h2>
+        <Table striped hover>
+          <thead>
+          <tr>
+            <th>Kysymys</th>
+            <th>Vastustaja</th>
+            <th>Me</th>
+            <th>Ne</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          {renderScores(scores)}
+          </tbody>
+        </Table>
+        </Col>
+      </Row>
+    </Container>
   );
 
   function renderScores(scores: Score[]) {

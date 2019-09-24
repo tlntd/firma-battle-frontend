@@ -1,3 +1,12 @@
-.App {
-  padding-top: 2rem;
+@import "variables";
+
+.breadcrumb {
+  background: 0;
+  margin-bottom: 2rem;
+}
+
+.breadcrumb-item {
+  > a {
+    color: $pink;
+  }
 }

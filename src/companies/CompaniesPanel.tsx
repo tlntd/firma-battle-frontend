@@ -7,6 +7,7 @@ import axios from 'axios';
 import {Company, UpdateCompaniesState} from '../App';
 import config from '../config';
 import CompanyScoresPanel from './CompanyScoresPanel';
+import Breadcrumb from 'react-bootstrap/Breadcrumb';
 
 type CompaniesProps = {
   hash: string,
@@ -41,11 +42,28 @@ export default class CompaniesPanel extends Component<CompaniesProps, CompaniesS
   render() {
     return (
       <Container>
+        {this.renderBreadcrumbs()}
         <Row>
           {this.defineContent()}
         </Row>
       </Container>
     );
+  }
+
+  renderBreadcrumbs() {
+    const companyId = this.getCompanyId();
+
+    if (!companyId) {
+      return (
+        <Row>
+          <Col>
+            <Breadcrumb>
+              <Breadcrumb.Item href="/#">Etusivu</Breadcrumb.Item>
+            </Breadcrumb>
+          </Col>
+        </Row>
+      );
+    }
   }
 
   defineContent() {

@@ -3,6 +3,7 @@ import Table from 'react-bootstrap/Table';
 import {Question} from '../App';
 import Spinner from '../common/Spinner';
 import './QuestionScoresPanel.scss';
+import Breadcrumb from 'react-bootstrap/Breadcrumb';
 
 type QuestionScoresPanelProps = {
   question: Question | undefined
@@ -15,6 +16,10 @@ const QuestionScoresPanel: React.FC<QuestionScoresPanelProps> = ({question}) => 
 
     return (
       <Fragment>
+        <Breadcrumb>
+          <Breadcrumb.Item href="/#">Etusivu</Breadcrumb.Item>
+          <Breadcrumb.Item href="#tulokset">Tulokset</Breadcrumb.Item>
+        </Breadcrumb>
         <h2 className="Scores-title">{question.pluralText}</h2>
         <Table striped hover>
           <thead>

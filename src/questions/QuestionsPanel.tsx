@@ -7,6 +7,7 @@ import axios from 'axios';
 import {UpdateQuestionsState, Question} from '../App';
 import config from '../config';
 import QuestionScoresPanel from './QuestionScoresPanel';
+import Breadcrumb from 'react-bootstrap/Breadcrumb'
 
 type QuestionsPanelProps = {
   hash: string,
@@ -71,7 +72,9 @@ export default class QuestionsPanel extends Component<QuestionsPanelProps, Quest
 
     return (
       <>
-        <h2 className="Scores-title">Valitse kysymys</h2>
+        <Breadcrumb>
+          <Breadcrumb.Item href="/#">Etusivu</Breadcrumb.Item>
+        </Breadcrumb>
         <ListGroup variant="flush">
           {this.renderQuestions()}
         </ListGroup>
