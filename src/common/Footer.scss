@@ -1,3 +1,10 @@
 .Footer-text {
   margin: 0 auto;
+  color: #ABABAB;
+
+  > a {
+    color: #ABABAB;
+    font-weight: bold;
+    text-decoration: underline;
+  }
 }

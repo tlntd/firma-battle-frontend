@@ -13,7 +13,7 @@ const Footer: React.FC<Props> = ({hash}) => {
   return (
     <Navbar bg="light" fixed="bottom">
       <p className="Footer-text">
-        Tämän sivun tekivät <a href="https://github.com/varmais">Teemu Tiilikainen</a> ja <a href="https://talented.fi">Talented</a> – Talented auttaa tekijöitä löytämään parhaat firmat ja huonoja firmoja tulemaan paremmiksi.
+        Tämän sivun tekivät <a href="https://github.com/varmais">Teemu Tiilikainen</a> ja <a href="https://talented.fi">Talented</a> – Talented auttaa tekijöitä löytämään parhaat firmat ja firmoja tekemään parempaa rekrytointia.
       </p>
     </Navbar>
   );

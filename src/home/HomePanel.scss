@@ -1,0 +1,54 @@
+@import "../variables";
+
+.HomeContainer {
+  color: $pink;
+  text-align: center;
+  max-width: 470px;
+  margin: 0 auto;
+
+  > img {
+    margin-top: 2rem;
+    max-width: 100%;
+  }
+
+  > h1 {
+    margin-top: 1.5rem;
+    font-size: 22px;
+    line-height: 28px;
+  }
+
+  > button {
+    background: $pink;
+    border-bottom: 6px inset rgba(0,0,0,.5);
+    border-left: 6px inset rgba(0,0,0,.5);
+    border-right: 6px inset rgba(255,255,255,.5);
+    border-top: 6px inset rgba(255,255,255,.5);
+    box-sizing: border-box;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 15px;
+    margin: 2rem 1rem 0;
+    padding: .5rem 1rem;
+    text-transform: uppercase;
+    width: auto;
+
+    &:focus,
+    &:hover {
+      background: darken($pink, 15%);
+      border-bottom: 6px inset rgba(0,0,0,.5);
+      border-left: 6px inset rgba(0,0,0,.5);
+      border-right: 6px inset rgba(255,255,255,.5);
+      border-top: 6px inset rgba(255,255,255,.5);
+    }
+  }
+
+  > p {
+    margin-top: 4rem;
+
+    > a {
+      color: $pink;
+      text-decoration: underline;
+    }
+  }
+}

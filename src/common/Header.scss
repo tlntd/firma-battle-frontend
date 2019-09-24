@@ -1,0 +1,15 @@
+@import "../variables";
+
+.navbar {
+  box-shadow: none;
+}
+
+.navbar-nav {
+  margin: 0 auto;
+  font-size: 16px;
+
+  > a.nav-link {
+    color: $pink !important;
+    font-weight: bold;
+  }
+}
