@@ -1,5 +1,13 @@
 @import "variables";
 
+a {
+  color: $pink;
+
+  &:hover {
+    color: darken($pink, 10%);
+  }
+}
+
 .breadcrumb {
   background: 0;
   margin-bottom: 2rem;
