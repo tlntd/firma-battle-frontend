@@ -1,1 +1,28 @@
 $pink: #D65BE3;
+$gray: #ABABAB;
+
+.RetroButton {
+  background: $pink;
+  border-bottom: 6px inset rgba(0,0,0,.5);
+  border-left: 6px inset rgba(0,0,0,.5);
+  border-right: 6px inset rgba(255,255,255,.5);
+  border-top: 6px inset rgba(255,255,255,.5);
+  box-sizing: border-box;
+  color: white;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 15px;
+  margin: 2rem 1rem 0;
+  padding: .5rem 1rem;
+  text-transform: uppercase;
+  width: auto;
+
+  &:focus,
+  &:hover {
+    background: darken($pink, 15%);
+    border-bottom: 6px inset rgba(0,0,0,.5);
+    border-left: 6px inset rgba(0,0,0,.5);
+    border-right: 6px inset rgba(255,255,255,.5);
+    border-top: 6px inset rgba(255,255,255,.5);
+  }
+}

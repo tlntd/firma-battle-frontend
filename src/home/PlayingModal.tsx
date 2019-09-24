@@ -109,11 +109,12 @@ class PlayingModal extends Component<PlayingModalProps, PlayingModalState> {
         <Row>
           <Col>
             <div className="Modal-links">
-              <Button variant="link" onClick={() => this.newQuestion()}>Skippaa</Button>
-              <a className="btn btn-link" href="#tulokset">Tulokset</a>
+              <Button variant="link" onClick={() => this.newQuestion()}>Skippaa kysymys</Button>
+              <p>Peli jatkuu niin kauan kuin jaksat kliksutella</p>
             </div>
           </Col>
         </Row>
+        <a className="btn btn-scores" href="#tulokset">Tulokset</a>
       </Container>
     )
   }

@@ -1,9 +1,11 @@
+@import "../variables";
+
 .Footer-text {
   margin: 0 auto;
-  color: #ABABAB;
+  color: $gray;
 
   > a {
-    color: #ABABAB;
+    color: $gray;
     font-weight: bold;
     text-decoration: underline;
   }

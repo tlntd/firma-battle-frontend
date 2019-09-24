@@ -1,8 +1,12 @@
+@import '../variables';
+
 .modal-body {
   padding: 1rem 0;
+  color: $pink;
 
   h3 {
     text-align: center;
+    margin-top: 1rem;
     margin-bottom: 4rem;
   }
 }
@@ -15,6 +19,7 @@
     right: 1rem;
     top: 1rem;
     z-index: 5;
+    color: $pink;
   }
 }
 
@@ -25,10 +30,12 @@
 
 .card-img-top {
   cursor: pointer;
+  padding: 1rem;
+  border: 1px solid transparent;
 
   &:hover {
     transition: box-shadow 200ms ease-in-out;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    border: 1px solid $pink;
   }
 }
 
@@ -50,7 +57,31 @@
 .Modal-links {
   margin-top: 2rem;
   text-align: center;
+
+  > button {
+    color: #000;
+
+    &:hover {
+      color: $pink;
+    }
+  }
+
+  > p {
+    color: $gray;
+
+    &:hover {
+      color: $gray;
+    }
+  }
 }
+
+
+.btn-scores {
+  @extend .RetroButton;
+  float: right;
+  font-size: 12px;
+}
+
 
 @media (min-width: 992px) {
   .modal-body {
